@@ -419,3 +419,13 @@ helm-push: helm-package ## Push envoy ai gateway relevant helm charts to OCI reg
 	@echo "helm-push => .${HELM_DIR}"
 	@$(GO_TOOL) helm push ${OUTPUT_DIR}/ai-gateway-crds-helm-${HELM_CHART_VERSION}.tgz oci://${OCI_REGISTRY}
 	@$(GO_TOOL) helm push ${OUTPUT_DIR}/ai-gateway-helm-${HELM_CHART_VERSION}.tgz oci://${OCI_REGISTRY}
+
+.PHONY: test-runware run-runware-mock run-runware-local
+test-runware: ## Run credential-free Runware-compatible tests with local Envoy and a synthetic backend.
+	@go test ./tests/data-plane/runware/... ./tests/internal/testrunware/... $(GO_TEST_E2E_ARGS) -v
+
+run-runware-mock: ## Serve the synthetic Runware-compatible backend on 127.0.0.1:11434.
+	@go run ./tests/runware-mock
+
+run-runware-local: build.aigw ## Run the local Runware example; start run-runware-mock in another terminal first.
+	@$(OUTPUT_DIR)/aigw-$(shell go env GOOS)-$(shell go env GOARCH) run examples/runware/local.yaml

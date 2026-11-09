@@ -1,0 +1,39 @@
+# Copyright Envoy AI Gateway Authors
+# SPDX-License-Identifier: Apache-2.0
+# The full text of the Apache license is available in the LICENSE file at
+# the root of the repo.
+
+version: dev
+backends:
+  - name: runware-chat
+    schema:
+      name: OpenAI
+      prefix: v1
+    modelNameOverride: mock:chat@1
+    auth:
+      apiKey:
+        key: runware-mock-key
+  - name: runware-responses
+    schema:
+      name: OpenAI
+      prefix: v1
+    modelNameOverride: mock:responses@1
+    auth:
+      apiKey:
+        key: runware-mock-key
+  - name: runware-wrong-key
+    schema:
+      name: OpenAI
+      prefix: v1
+    modelNameOverride: mock:chat@1
+    auth:
+      apiKey:
+        key: wrong-synthetic-key
+  - name: runware-invalid-model
+    schema:
+      name: OpenAI
+      prefix: v1
+    modelNameOverride: mock:missing@1
+    auth:
+      apiKey:
+        key: runware-mock-key

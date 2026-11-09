@@ -4,6 +4,7 @@ traffic for various AI providers.
 ## Examples
 
 - `basic.yaml` - Basic configuration without any backends
+- `runware.yaml` - Runware compatible text configuration; [local mock demo](../runware/README.md)
 - `openai.yaml` - OpenAI integration
 - `openai-spiffe.yaml` - OpenAI integration without a static API key, using SPIFFE and OAuth 2.0 Token Exchange
 - `aws.yaml` - AWS Bedrock with static credentials
